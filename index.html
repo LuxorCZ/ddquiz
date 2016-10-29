@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="PSPad editor, www.pspad.com">
+  <title>Kvíz</title>
+  <script>
+  var at = 0;
+  var cc = 0;
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    
+    function drag(ev) {
+    	ev.dataTransfer.setData("data", ev.target.id);
+    }
+
+    function drop(ev) {
+
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("data");
+        console.log(ev.target.tagName);
+        if("a" + data == ev.target.id) 
+        {
+          document.getElementById(ev.target.id).className = "box correct";
+          document.getElementById(data).setAttribute("draggable", "false");
+          document.getElementById(ev.target.id).setAttribute("ondragover", "");
+          var temp = document.createElement("div");
+          temp.id = "a" + data + ev.target.id;
+          temp.className = "correctanswer";
+          temp.appendChild(document.createTextNode("Correct!"));
+          ev.target.appendChild(temp);
+          at++;
+          cc++;
+        }else{
+          at++;
+          document.getElementById(ev.target.id).setAttribute("ondragover", "");
+          document.getElementById(ev.target.id).className = "box false"; 
+          var temp = document.createElement("div");
+          temp.id = "a" + data + ev.target.id;
+          temp.className = "incorrectanswer";
+          temp.appendChild(document.createTextNode("Incorrect :("));
+          ev.target.appendChild(temp);
+          //temp.parentElement.setAttribute("ondragover", "allowDrop(event)"); 
+          window.setTimeout(function(){temp.parentElement.setAttribute("ondragover", "allowDrop(event)"); temp.parentElement.removeChild(temp);}, 2000);
+        }
+        document.getElementById("score").innerHTML = "Accuracy: " + Math.round((cc / at) * 100) + "% (" + cc + " correct out of " + at + " tries)";
+        if(cc == 21)
+        {
+          document.getElementById("score").innerHTML = "You won! Your accuracy was: " + Math.round((cc / at) * 100) + "% (" + cc + " correct out of " + at + " tries)";
+          if(cc % at != 0) document.getElementById("score").innerHTML += " Can you do better?";
+          if(cc % at == 0) document.getElementById("score").innerHTML += " Perfect job!";
+          if(cc / at > 1) document.getElementById("score").innerHTML += " Did you cheat?";
+        }
+        ev.target.appendChild(document.getElementById(data));
+
+        		
+
+        var elements = document.getElementsByClassName('target');
+    	console.log(elements);
+    	for(j = 0; j < elements.length; j++)
+    	for(i=0; i< elements[j].childNodes.length; i++) {
+		document.getElementById('imglist').appendChild(elements[j].childNodes[i]);
+		}
+    }
+
+    function drop2(ev)
+    {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("data");
+      ev.target.appendChild(document.getElementById(data));
+    }
+
+    function dropImg(ev)
+    {
+    	ev.preventDefault();
+    }
+
+  </script>
+  <style>
+    @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+    body{font-family:Open Sans;}
+    .box{border: 1px dashed black; width:150px; height:150px; float:right; margin-left: 5px;  font-weight:bold; font-size:15pt; text-align: center; vertical-align: middle; line-height: 150px;}
+    td{text-align: center}
+    .correct{border: 3px solid green; }
+    .false{border: 3px solid red; }
+    .correctanswer{width: 150px; height: 150px; position: absolute; background-color: rgba(255, 255, 255, 0.85); font-weight:bold; font-size:15pt; text-align: center; vertical-align: middle; line-height: 150px; }
+    .incorrectanswer{width: 150px; height: 150px; position: absolute; background-color: rgba(255, 255, 255, 0.85); font-weight:bold; font-size:15pt; text-align: center; vertical-align: middle; line-height: 150px; }
+    .score{width: 100%; text-align:center;}
+    .target{}
+    .win{width: 100%; height: 100%; position: absolute; background-color: rgba(255, 255, 255, 0.85); font-weight:bold; font-size:42pt; text-align: center; vertical-align: middle; line-height: 100%; }
+  </style>
+  </head>
+  <body> 
+    <div class="score" id="score">Accuracy: </div>
+  <table style="width:100%;">
+  <tr id="imagelist">
+     <td width="50%" ondrop="drop2(event)" ondragover="allowDrop(event)" id="imglist">    
+        <img id="20" src="img/20.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="3" src="img/3.jpg" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="1" src="img/1.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="10" src="img/10.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">        
+        <img id="6" src="img/6.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="8" src="img/8.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="21" src="img/21.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="2" src="img/2.jpg" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">        
+        <img id="9" src="img/9.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="11" src="img/11.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="19" src="img/19.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="15" src="img/15.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="18" src="img/18.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="12" src="img/12.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="5" src="img/5.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">        
+        <img id="13" src="img/13.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="7" src="img/7.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="14" src="img/14.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="16" src="img/16.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="4" src="img/4.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+        <img id="17" src="img/17.png" draggable="true" ondragstart="drag(event)" ondrop="dropImg(event)" class="target">
+    </td>
+      <td style="vertical-align:top;">
+        <table>
+          <tr>
+            <td><div id="a1" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a2" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a3" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a4" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a5" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+          </tr>  
+          <tr>
+            <td>Frame</td>
+            <td>Barcode</td>
+            <td>Mainframe</td>
+            <td>Laptop</td>
+            <td>Pointer</td>
+          </tr>
+          <tr>
+            <td><div id="a6" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a7" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a8" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a9" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a10" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+          </tr>  
+          <tr>
+            <td>Electrical Outlet</td>
+            <td>Prefix</td>
+            <td>Scrap</td>
+            <td>Stylus</td>
+            <td>Plug</td>
+          </tr>
+          <tr>
+            <td><div id="a11" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a12" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a13" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a14" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a15" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+          </tr>  
+          <tr>
+            <td>Exscessive</td>
+            <td>Suffix</td>
+            <td>Unique</td>
+            <td>Consist of</td>
+            <td>Biodegradable</td>
+          </tr>
+          <tr>
+            <td><div id="a16" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a17" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a18" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a19" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+            <td><div id="a20" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+          </tr>  
+          <tr>
+            <td>Tiny</td>
+            <td>Select</td>
+            <td>Instead of</td>
+            <td>Allow</td>
+            <td>Receive</td>
+          </tr>
+          <tr>
+            <td><div id="a21" ondrop="drop(event)" ondragover="allowDrop(event)" class="box"></div></td>
+          </tr>  
+          <tr>
+            <td>Dedicated</td>
+          </tr>
+        </table>
+      </td>
+  </tr>
+  </table>
+  </body>
+</html>
